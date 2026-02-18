@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Special Surprise 🎁</title>
+<title>Birthday Surprise 🎁</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -24,11 +24,6 @@ body{
     border-radius:20px;
     max-width:400px;
     box-shadow:0 20px 60px rgba(0,0,0,0.3);
-    transition:0.5s;
-}
-
-h1{
-    color:#ff4d6d;
 }
 
 button{
@@ -42,49 +37,48 @@ button{
     font-weight:600;
 }
 
-button:hover{
-    background:#e63950;
-}
-
-.loading{
-    margin-top:15px;
-    font-weight:600;
-    color:#555;
-}
-
-/* Jumpscare screen */
-#trollScreen{
+/* FAKE VIRUS SCREEN */
+#virusScreen{
     position:fixed;
     top:0;
     left:0;
     width:100%;
     height:100%;
     background:black;
+    color:red;
     display:none;
+    flex-direction:column;
     justify-content:center;
     align-items:center;
-    flex-direction:column;
+    font-weight:700;
+    font-size:20px;
     z-index:999;
-}
-
-#trollScreen img{
-    width:250px;
-    animation:shake 0.2s infinite;
+    animation:shake 0.1s infinite;
 }
 
 @keyframes shake{
-    0%{transform:translate(2px,2px);}
-    25%{transform:translate(-2px,-2px);}
-    50%{transform:translate(2px,-2px);}
-    75%{transform:translate(-2px,2px);}
-    100%{transform:translate(2px,2px);}
+    0%{transform:translate(3px,3px);}
+    25%{transform:translate(-3px,-3px);}
+    50%{transform:translate(3px,-3px);}
+    75%{transform:translate(-3px,3px);}
+    100%{transform:translate(3px,3px);}
 }
 
-#finalMessage{
+#virusScreen img{
+    width:250px;
+    margin-top:20px;
+    animation:zoom 0.3s infinite alternate;
+}
+
+@keyframes zoom{
+    from{transform:scale(1);}
+    to{transform:scale(1.1);}
+}
+
+#final{
     display:none;
     color:white;
-    font-size:20px;
-    margin-top:20px;
+    text-align:center;
 }
 </style>
 </head>
@@ -92,46 +86,43 @@ button:hover{
 <body>
 
 <div class="card" id="mainCard">
-    <h1>🎂 Happy Birthday Test</h1>
-    <p>Klik button bawah ni untuk special surprise 🎁</p>
-    <button onclick="startTroll()">Open Surprise</button>
-    <div class="loading" id="loadingText"></div>
+    <h1>🎂 Happy Birthday Bro</h1>
+    <p>Klik bawah ni untuk surprise special 🔥</p>
+    <button onclick="startPrank()">Open Surprise</button>
 </div>
 
-<div id="trollScreen">
-    <img src="troll.jpeg" alt="Troll Face">
-    <div id="finalMessage">HAHAHA Relax laaa 😜<br>Happy Birthday!!! 🎉</div>
+<div id="virusScreen">
+    ⚠ WARNING ⚠<br>
+    Your device has been hacked!<br>
+    Camera access detected 📷<br>
+    Uploading embarrassing photos...
+    <img src="troll.jpeg" alt="troll">
+    <div id="final">
+        <h1 style="color:#00ff88;">HAHAHAHA 😂</h1>
+        <p style="color:white;">
+            Relax la brooo 🤣  
+            Happy Birthday!!! 🎉🎂  
+            Semoga panjang umur & makin hensem 😎
+        </p>
+    </div>
 </div>
 
-<audio id="scream">
-    <source src="scream.mp3" type="audio/mpeg">
+<audio id="alarm">
+    <source src="alarm.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-function startTroll(){
-    let loading=document.getElementById("loadingText");
-    loading.innerHTML="Loading surprise... 10%";
-
-    let percent=10;
-    let interval=setInterval(function(){
-        percent+=10;
-        loading.innerHTML="Loading surprise... "+percent+"%";
-
-        if(percent>=100){
-            clearInterval(interval);
-            setTimeout(showTroll,500);
-        }
-    },400);
-}
-
-function showTroll(){
+function startPrank(){
     document.getElementById("mainCard").style.display="none";
-    document.getElementById("trollScreen").style.display="flex";
-    document.getElementById("scream").play();
+    let virus=document.getElementById("virusScreen");
+    virus.style.display="flex";
+
+    document.getElementById("alarm").play();
 
     setTimeout(function(){
-        document.getElementById("finalMessage").style.display="block";
-    },2000);
+        document.getElementById("final").style.display="block";
+        virus.style.animation="none";
+    },3000);
 }
 </script>
 
