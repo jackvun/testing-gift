@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Special Surprise 🎁</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+    overflow:hidden;
+    text-align:center;
+}
+
+.card{
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    max-width:400px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.3);
+    transition:0.5s;
+}
+
+h1{
+    color:#ff4d6d;
+}
+
+button{
+    margin-top:20px;
+    padding:12px 25px;
+    border:none;
+    border-radius:25px;
+    background:#ff4d6d;
+    color:white;
+    cursor:pointer;
+    font-weight:600;
+}
+
+button:hover{
+    background:#e63950;
+}
+
+.loading{
+    margin-top:15px;
+    font-weight:600;
+    color:#555;
+}
+
+/* Jumpscare screen */
+#trollScreen{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:999;
+}
+
+#trollScreen img{
+    width:250px;
+    animation:shake 0.2s infinite;
+}
+
+@keyframes shake{
+    0%{transform:translate(2px,2px);}
+    25%{transform:translate(-2px,-2px);}
+    50%{transform:translate(2px,-2px);}
+    75%{transform:translate(-2px,2px);}
+    100%{transform:translate(2px,2px);}
+}
+
+#finalMessage{
+    display:none;
+    color:white;
+    font-size:20px;
+    margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="mainCard">
+    <h1>🎂 Happy Birthday Test</h1>
+    <p>Klik button bawah ni untuk special surprise 🎁</p>
+    <button onclick="startTroll()">Open Surprise</button>
+    <div class="loading" id="loadingText"></div>
+</div>
+
+<div id="trollScreen">
+    <img src="troll.jpg" alt="Troll Face">
+    <div id="finalMessage">HAHAHA Relax laaa 😜<br>Happy Birthday!!! 🎉</div>
+</div>
+
+<audio id="scream">
+    <source src="scream.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function startTroll(){
+    let loading=document.getElementById("loadingText");
+    loading.innerHTML="Loading surprise... 10%";
+
+    let percent=10;
+    let interval=setInterval(function(){
+        percent+=10;
+        loading.innerHTML="Loading surprise... "+percent+"%";
+
+        if(percent>=100){
+            clearInterval(interval);
+            setTimeout(showTroll,500);
+        }
+    },400);
+}
+
+function showTroll(){
+    document.getElementById("mainCard").style.display="none";
+    document.getElementById("trollScreen").style.display="flex";
+    document.getElementById("scream").play();
+
+    setTimeout(function(){
+        document.getElementById("finalMessage").style.display="block";
+    },2000);
+}
+</script>
+
+</body>
+</html>
